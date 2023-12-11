@@ -9,6 +9,7 @@ import SignUp from "./pages/client/Signup";
 import AdminSignUp from "./pages/admin/AdminSignup";
 import AdminSignIn from "./pages/admin/AdminSignin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import ProductDetail from "./pages/client/ProductDetail";
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
           <Route path="adminsignup" element={<AdminSignUp />} />
           <Route path="adminsignin" element={<AdminSignIn />} />
           <Route path="admindashboard" element={<AdminDashboard />} />
+          <Route exact path="/product/:id" element={<ProductDetail />} />
+
         </Route>
       </Routes>
     </Router>

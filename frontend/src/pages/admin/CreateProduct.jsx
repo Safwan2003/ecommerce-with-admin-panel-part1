@@ -1,5 +1,21 @@
 import React, { useState } from 'react';
 
+// Sample class for OOP demonstration
+class Product {
+  constructor(productname, price, description, category, images) {
+    this.productname = productname;
+    this.price = price;
+    this.description = description;
+    this.category = category;
+    this.images = images;
+  }
+
+  // Sample method for OOP demonstration
+  getProductDetails() {
+    return `${this.productname} - $${this.price}`;
+  }
+}
+
 const CreateProduct = ({ addProduct, admin }) => {
   const [productData, setProductData] = useState({
     productname: '',
@@ -14,27 +30,40 @@ const CreateProduct = ({ addProduct, admin }) => {
     setProductData({ ...productData, [name]: value });
   };
 
-  // const handleImageUpload = (e) => {
-  //   const files = e.target.files;
-  //   const uploadedImages = [];
+  const handleImageUpload = (e) => {
+    const files = e.target.files;
+    const uploadedImages = [];
 
-  //   for (let i = 0; i < files.length; i++) {
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(files[i]);
-  //     reader.onload = () => {
-  //       uploadedImages.push(reader.result);
-  //       if (uploadedImages.length === files.length) {
-  //         setProductData({ ...productData, images: uploadedImages });
-  //       }
-  //     };
-  //   }
-  // };
+    for (let i = 0; i < files.length; i++) {
+      const reader = new FileReader();
+      reader.readAsDataURL(files[i]);
+      reader.onload = () => {
+        uploadedImages.push(reader.result); // Adding the result to the end of the array
+        if (uploadedImages.length === files.length) {
+          setProductData({ ...productData, images: uploadedImages });
+        }
+      };
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Append admin name to productData
     const productWithAdmin = { ...productData, admin: admin };
-    addProduct(productWithAdmin);
+
+    // Use OOP concepts by creating an instance of the Product class
+    const newProduct = new Product(
+      productWithAdmin.productname,
+      productWithAdmin.price,
+      productWithAdmin.description,
+      productWithAdmin.category,
+      productWithAdmin.images
+    );
+
+   
+    // Add the new product using the provided addProduct function
+    addProduct(newProduct);
+
     setProductData({
       productname: '',
       price: 0,
@@ -80,14 +109,15 @@ const CreateProduct = ({ addProduct, admin }) => {
           placeholder="Category"
           className="w-full mb-3 p-2 border rounded"
         />
-        {/* <input
+        {/* Image upload functionality */}
+        <input
           type="file"
           name="images"
           onChange={handleImageUpload}
           multiple
           accept="image/*"
           className="w-full mb-3 p-2 border rounded"
-        /> */}
+        />
         {/* Add a preview for uploaded images if needed */}
         <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">
           Create Product

@@ -27,7 +27,7 @@ const AdminDashboard = () => {
 
           if (status) {
             setadminname(admin);
-            console.log(`Hello ${admin}`);
+            alert(`Hello ${admin}`);
           } else {
             removeCookie("token");
             navigate("/admindashboard");
